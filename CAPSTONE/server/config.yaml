@@ -1,0 +1,21 @@
+simulation:
+  max_rounds: 10
+  seed_size: 32
+  key_size: 32
+  model_update_size: 64
+  client_id_size: 8
+  compromise_round: 5
+  target_backtrack_round: 2
+
+client_a:
+  method: "Simple_SecAgg"
+  client_id: "0102030405060708"
+
+client_b:
+  method: "PQC_Ratcheting"
+  client_id: "1122334455667788"
+
+output:
+  verbose: true
+  print_keys: true
+  print_json: true

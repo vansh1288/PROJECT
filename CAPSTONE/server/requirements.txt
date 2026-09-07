@@ -1,0 +1,7 @@
+pyyaml>=6.0
+cryptography>=41.0
+hashlib
+secrets
+json
+typing
+dataclasses
