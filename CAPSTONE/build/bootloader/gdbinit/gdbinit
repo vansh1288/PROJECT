@@ -1,0 +1,2 @@
+source C:/PROJECT/CAPSTONE/build/bootloader/gdbinit/symbols
+source C:/PROJECT/CAPSTONE/build/bootloader/gdbinit/connect

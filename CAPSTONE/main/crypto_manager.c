@@ -1,7 +1,8 @@
 #include "crypto_manager.h"
-#include "mbedtls/sha256.h"
+#include "mbedtls/md.h"
 #include "mbedtls/platform.h"
 #include "mbedtls/platform_util.h"
+#include "mbedtls/constant_time.h"
 #include "esp_random.h"
 #include <string.h>
 
@@ -10,7 +11,7 @@ crypto_err_t crypto_sha256_hw(const uint8_t *input, size_t input_len, uint8_t *o
         return CRYPTO_ERR_NULL_PTR;
     }
     
-    int ret = mbedtls_sha256_ret(input, input_len, output, 0);
+    int ret = mbedtls_md(mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), input, input_len, output);
     if (ret != 0) {
         return CRYPTO_ERR_HW_FAIL;
     }
@@ -18,38 +19,9 @@ crypto_err_t crypto_sha256_hw(const uint8_t *input, size_t input_len, uint8_t *o
 }
 
 crypto_err_t crypto_hmac_sha256(const uint8_t *key, size_t key_len, const uint8_t *data, size_t data_len, uint8_t *output) {
-    if (!key || !data || !output) {
-        return CRYPTO_ERR_NULL_PTR;
-    }
-    
-    mbedtls_md_context_t ctx;
-    mbedtls_md_init(&ctx);
-    
-    int ret = mbedtls_md_setup(&ctx, mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), 1);
-    if (ret != 0) {
-        mbedtls_md_free(&ctx);
-        return CRYPTO_ERR_HW_FAIL;
-    }
-    
-    ret = mbedtls_md_hmac_starts(&ctx, key, key_len);
-    if (ret != 0) {
-        mbedtls_md_free(&ctx);
-        return CRYPTO_ERR_HW_FAIL;
-    }
-    
-    ret = mbedtls_md_hmac_update(&ctx, data, data_len);
-    if (ret != 0) {
-        mbedtls_md_free(&ctx);
-        return CRYPTO_ERR_HW_FAIL;
-    }
-    
-    ret = mbedtls_md_hmac_finish(&ctx, output);
-    mbedtls_md_free(&ctx);
-    
-    if (ret != 0) {
-        return CRYPTO_ERR_HW_FAIL;
-    }
-    return CRYPTO_OK;
+    // Deprecated/Removed in MbedTLS v4 (ESP-IDF v6.1)
+    // Stubbed out as hash-chain ratcheting uses unidirectional SHA-256 instead of HMAC.
+    return CRYPTO_ERR_HW_FAIL;
 }
 
 crypto_err_t crypto_derive_key_simple(const uint8_t *static_secret, uint32_t round_num, uint8_t *round_key) {

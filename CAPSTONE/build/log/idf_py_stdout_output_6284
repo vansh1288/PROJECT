@@ -1,0 +1,125 @@
+Command: C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe C:\esp\v6.1\esp-idf\tools/idf_monitor.py -p COM3 -b 115200 --toolchain-prefix riscv32-esp-elf- --target esp32c3 --revision 3 --decode-panic backtrace C:\PROJECT\CAPSTONE\build\capstone_secagg.elf C:\PROJECT\CAPSTONE\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\tools\python\v6.1\venv\Scripts\python.exe' 'C:\esp\v6.1\esp-idf\tools\idf.py' '-p' 'COM3'
+[0;32mI (100) esp_image: segment 3: paddr=00020020 vaddr=42000020 sizeESP-ROM:esp32c3-api1-20210207[0m
+Build:Feb  7 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xc (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403837ac
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fcd5830,len:0x1538
+load:0x403cbf10,len:0xd10
+load:0x403ce710,len:0x2fc8
+entry 0x403cbf1a
+[0;32mI (24) boot: ESP-IDF v6.1 2nd stage bootloader[0m
+[0;32mI (24) boot: compile time Sep  8 2026 04:22:46[0m
+[0;32mI (25) boot: chip revision: v0.4[0m
+[0;32mI (25) boot: efuse block revision: v1.3[0m
+[0;32mI (28) boot.esp32c3: SPI Speed      : 80MHz[0m
+[0;32mI (32) boot.esp32c3: SPI Mode       : DIO[0m
+[0;32mI (35) boot.esp32c3: SPI Flash Size : 2MB[0m
+[0;32mI (39) boot: Enabling RNG early entropy source...[0m
+[0;32mI (44) boot: Partition Table:[0m
+[0;32mI (46) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (53) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (59) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (66) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (72) boot: End of partition table[0m
+[0;32mI (75) esp_image: segment 0: paddr=00010020 vaddr=3c030020 size=0b9b4h ( 47540) map[0m
+[0;32mI (91) esp_image: segment 1: paddr=0001b9dc vaddr=3fc89e00 size=01868h (  6248) load[0m
+[0;32mI (92) esp_image: segment 2: paddr=0001d24c vaddr=40380000 size=02dcch ( 11724) load[0m
+[0;32mI (100) esp_image: segment 3: paddr=00020020 vaddr=42000020 size=25c58h (154712) map[0m
+[0;32mI (130) esp_image: segment 4: paddr=00045c80 vaddr=40382dcc size=06ed8h ( 28376) load[0m
+[0;32mI (136) esp_image: segment 5: paddr=0004cb60 vaddr=50000000 size=00024h (    36) load[0m
+[0;32mI (140) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (140) boot: Disabling RNG early entropy source...[0m
+[0;32mI (155) cpu_start: Unicore app[0m
+[0;32mI (163) cpu_start: GPIO 20 and 21 are used as console UART I/O pins[0m
+[0;32mI (164) cpu_start: Pro cpu start user code[0m
+[0;32mI (164) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (166) app_init: Application information:[0m
+[0;32mI (170) app_init: Project name:     capstone_secagg[0m
+[0;32mI (174) app_init: App version:      9471a39-dirty[0m
+[0;32mI (179) app_init: Compile time:     Sep  8 2026 04:15:26[0m
+[0;32mI (184) app_init: ELF file SHA256:  ba7cd8010...[0m
+[0;32mI (188) app_init: ESP-IDF:          v6.1[0m
+[0;32mI (192) efuse_init: Min chip rev:     v0.3[0m
+[0;32mI (195) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (199) efuse_init: Chip rev:         v0.4[0m
+[0;32mI (203) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (210) heap_init: At 3FC8CC80 len 00033380 (204 KiB): RAM[0m
+[0;32mI (215) heap_init: At 3FCC0000 len 0001C710 (113 KiB): Retention RAM[0m
+[0;32mI (221) heap_init: At 3FCDC710 len 00002950 (10 KiB): Retention RAM[0m
+[0;32mI (227) heap_init: At 50000024 len 00001FC4 (7 KiB): RTCRAM[0m
+[0;32mI (233) spi_flash: detected chip: generic[0m
+[0;32mI (236) spi_flash: flash io: dio[0m
+[0;33mW (239) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (251) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (257) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (264) main_task: Started on CPU0[0m
+[0;32mI (264) main_task: Calling app_main()[0m
+[0;32mI (264) CAPSTONE_SECAgg: CAPSTONE SecAgg Forward Privacy Demo Starting...[0m
+[0;32mI (274) CAPSTONE_SECAgg: Target: Seeed Studio XIAO ESP32-C3[0m
+[0;32mI (274) CAPSTONE_SECAgg: FreeRTOS Heap: 334264 bytes free[0m
+[0;32mI (284) CAPSTONE_SECAgg: ============================================[0m
+[0;32mI (284) CAPSTONE_SECAgg: Starting Simple SecAgg Simulation (Method A)[0m
+[0;32mI (294) CAPSTONE_SECAgg: ============================================[0m
+[1;31mE (304) CAPSTONE_SECAgg: Failed to create payload for round 0: -2[0m
+
+=== Client Node Key Trace ===
+Method: Simple SecAgg
+Client ID: 0102030405060708
+Static Secret: ec59b829018342dfab80cd4fd8da7081fa244f45b0b08cc151b115cf16df8a30
+
+Round Keys:
+  Round 0: ee39d4a60e25ceafa81dc701682c8b2f7eac08b546d284e632fddbb92e0e8546
+  Round 1: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 2: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 3: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 4: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 5: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 6: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 7: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 8: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 9: 0000000000000000000000000000000000000000000000000000000000000000
+============================
+
+[0;32mI (394) CAPSTONE_SECAgg: [0m
+--- Simulating Compromise at Round 5 ---
+[0;32mI (394) CAPSTONE_SECAgg: [0m
+--- Backtracking to Round 2 ---
+[0;32mI (404) CAPSTONE_SECAgg: Original Round 2 Key:   [0m
+0000000000000000000000000000000000000000000000000000000000000000
+[0;32mI (414) CAPSTONE_SECAgg: Backtracked Round 2 Key:[0m
+010c7464620c56ce80980edd16bc9c004795467517ecffb0ed955b3d9e317803
+[0;32mI (424) CAPSTONE_SECAgg: Keys Match: NO[0m
+[0;32mI (424) CAPSTONE_SECAgg: Backtrack Result JSON: {[0m
+	"target_round":	2,
+	"original_key":	"0000000000000000000000000000000000000000000000000000000000000000",
+	"backtracked_key":	"010c7464620c56ce80980edd16bc9c004795467517ecffb0ed955b3d9e317803",
+	"keys_match":	false,
+	"forward_privacy":	"PRESERVED"
+}
+[0;32mI (454) CAPSTONE_SECAgg: [0m
+Full Key Trace JSON:
+{
+	"method":	"Simple_SecAgg",
+	"client_id":	"0102030405060708",
+	"static_secret":	"ec59b829018342dfab80cd4fd8da7081fa244f45b0b08cc151b115cf16df8a30",
+	"round_keys":	["ee39d4a60e25ceafa81dc701682c8b2f7eac08b546d284e632fddbb92e0e8546", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000", "0000000000000000000000000000000000000000000000000000000000000000"]
+}
+[0;32mI (1534) CAPSTONE_SECAgg: ============================================[0m
+[0;32mI (1534) CAPSTONE_SECAgg: Starting PQC Hash-Chain Ratcheting (Method B)[0m
+[0;32mI (1534) CAPSTONE_SECAgg: ============================================[0m
+[1;31mE (1534) CAPSTONE_SECAgg: Failed to create payload for round 0: -2[0m
+
+=== Client Node Key Trace ===
+Method: PQC Ratcheting
+Client ID: 1122334455667788
+Initial Seed: 358a9ab57173e8467e3a0b3a190d78619431389fcce9221bbb97463ce6668f25
+
+Round Keys:
+  Round 0: f3e955678831842c5066a4a8492e7bc886797b08509c0ec433644f9ef4b54f29
+  Round 1: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 2: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 3: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 4: 0000000000000000000000000000000000000000000000000000000000000000
+  Round 5: 000000000000000000000000000

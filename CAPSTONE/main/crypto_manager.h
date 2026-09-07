@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "mbedtls/sha256.h"
+#include "mbedtls/md.h"
 
 #ifdef __cplusplus
 extern "C" {
