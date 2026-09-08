@@ -14,6 +14,16 @@ extern "C" {
 #define KEY_SIZE 32
 #define ROUND_NUM_SIZE 4
 
+#define MLKEM_PUBLIC_KEY_BYTES 800
+#define MLKEM_SECRET_KEY_BYTES 1632
+#define MLKEM_CIPHERTEXT_BYTES 768
+#define MLKEM_SHARED_SECRET_BYTES 32
+
+typedef struct {
+    uint8_t pk[MLKEM_PUBLIC_KEY_BYTES];
+    uint8_t sk[MLKEM_SECRET_KEY_BYTES];
+} mlkem_keypair_t;
+
 typedef enum {
     CRYPTO_OK = 0,
     CRYPTO_ERR_NULL_PTR = -1,
@@ -28,6 +38,10 @@ crypto_err_t crypto_derive_key_ratchet(const uint8_t *seed, uint32_t round_num, 
 crypto_err_t crypto_secure_zeroize(void *ptr, size_t len);
 crypto_err_t crypto_generate_random_seed(uint8_t *seed);
 int crypto_constant_time_compare(const uint8_t *a, const uint8_t *b, size_t len);
+
+crypto_err_t crypto_mlkem_keygen(mlkem_keypair_t *kp);
+crypto_err_t crypto_mlkem_encaps(const uint8_t *pk, uint8_t *ciphertext, uint8_t *shared_secret);
+crypto_err_t crypto_mlkem_decaps(const uint8_t *sk, const uint8_t *ciphertext, uint8_t *shared_secret);
 
 #ifdef __cplusplus
 }

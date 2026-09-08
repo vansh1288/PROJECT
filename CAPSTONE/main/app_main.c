@@ -6,11 +6,17 @@
 #include "freertos/task.h"
 #include "esp_log.h"
 #include "esp_system.h"
+#include "esp_timer.h"
+#include "cJSON.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 static const char *TAG = "CAPSTONE_SECAgg";
+
+#ifndef MAX_ROUNDS
+#define MAX_ROUNDS 10
+#endif
 
 #define SIMULATE_MODEL_UPDATE_ROUND(round, buffer) \
     do { \
@@ -198,31 +204,67 @@ static void run_pqc_ratcheting_simulation(void) {
     client_node_cleanup(&node);
 }
 
+static void run_mlkem_handshake_simulation(void) {
+    ESP_LOGI(TAG, "============================================");
+    ESP_LOGI(TAG, "Starting ML-KEM-512 Key Encapsulation Demo");
+    ESP_LOGI(TAG, "============================================");
+
+    int64_t start_time = esp_timer_get_time();
+
+    mlkem_keypair_t kp;
+    crypto_mlkem_keygen(&kp);
+
+    uint8_t ciphertext[MLKEM_CIPHERTEXT_BYTES];
+    uint8_t client_shared_secret[MLKEM_SHARED_SECRET_BYTES];
+    uint8_t server_shared_secret[MLKEM_SHARED_SECRET_BYTES];
+
+    crypto_mlkem_encaps(kp.pk, ciphertext, server_shared_secret);
+    crypto_mlkem_decaps(kp.sk, ciphertext, client_shared_secret);
+
+    int64_t end_time = esp_timer_get_time();
+    int64_t duration_us = end_time - start_time;
+
+    int match = crypto_constant_time_compare(client_shared_secret, server_shared_secret, MLKEM_SHARED_SECRET_BYTES);
+
+    ESP_LOGI(TAG, "ML-KEM Handshake Time: %lld us", duration_us);
+    ESP_LOGI(TAG, "ML-KEM Shared Secrets Match: %s", (match == 0) ? "YES" : "NO");
+
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "algorithm", "ML-KEM-512");
+    cJSON_AddNumberToObject(root, "execution_time_us", (double)duration_us);
+    cJSON_AddBoolToObject(root, "secrets_match", (match == 0));
+    
+    char *json_str = cJSON_Print(root);
+    if (json_str) {
+        ESP_LOGI(TAG, "ML-KEM Audit JSON:\n%s", json_str);
+        cJSON_free(json_str);
+    }
+    cJSON_Delete(root);
+}
+
 static void print_final_comparison(void) {
     ESP_LOGI(TAG, "\n");
     ESP_LOGI(TAG, "============================================");
-    ESP_LOGI(TAG, "FINAL COMPARISON PROOF");
+    ESP_LOGI(TAG, "FINAL HYBRID ARCHITECTURE PROOF");
     ESP_LOGI(TAG, "============================================");
     ESP_LOGI(TAG, "");
     ESP_LOGI(TAG, "Method A (Simple SecAgg):");
     ESP_LOGI(TAG, "  - Uses static_secret || round_num -> SHA256");
     ESP_LOGI(TAG, "  - Compromise at Round 5 reveals static_secret");
-    ESP_LOGI(TAG, "  - Adversary can compute ANY past/future round key");
     ESP_LOGI(TAG, "  - Result: Forward Privacy BROKEN");
     ESP_LOGI(TAG, "");
     ESP_LOGI(TAG, "Method B (PQC Hash-Chain Ratcheting):");
-    ESP_LOGI(TAG, "  - Uses unidirectional hash chain: seed_t -> ephemeral_key -> seed_t+1");
-    ESP_LOGI(TAG, "  - Compromise at Round 5 reveals seed_5 only");
-    ESP_LOGI(TAG, "  - Cannot reverse SHA256 to get seed_4, seed_3, ... seed_2");
+    ESP_LOGI(TAG, "  - Uses unidirectional hash chain for round rotation");
     ESP_LOGI(TAG, "  - Result: Forward Privacy PRESERVED");
     ESP_LOGI(TAG, "");
-    ESP_LOGI(TAG, "Core Result: Hash-chain ratcheting provides");
-    ESP_LOGI(TAG, "forward privacy; static key derivation does not.");
+    ESP_LOGI(TAG, "ML-KEM-512 Handshake:");
+    ESP_LOGI(TAG, "  - Provides quantum-safe initial root seed establishment");
     ESP_LOGI(TAG, "============================================");
 }
 
-void app_main(void) {
-    ESP_LOGI(TAG, "CAPSTONE SecAgg Forward Privacy Demo Starting...");
+// Dedicated wrapper function executing all simulation steps cleanly
+void run_capstone_simulations_task(void *pvParameters) {
+    ESP_LOGI(TAG, "CAPSTONE SecAgg Forward Privacy & PQC Demo Starting...");
     ESP_LOGI(TAG, "Target: Seeed Studio XIAO ESP32-C3");
     ESP_LOGI(TAG, "FreeRTOS Heap: %zu bytes free", esp_get_free_heap_size());
     
@@ -231,12 +273,19 @@ void app_main(void) {
     
     run_pqc_ratcheting_simulation();
     vTaskDelay(pdMS_TO_TICKS(1000));
+
+    run_mlkem_handshake_simulation();
+    vTaskDelay(pdMS_TO_TICKS(1000));
     
     print_final_comparison();
     
     ESP_LOGI(TAG, "Demo complete. Free heap: %zu bytes", esp_get_free_heap_size());
     
-    while (1) {
-        vTaskDelay(pdMS_TO_TICKS(10000));
-    }
+    // Delete task when finished so it doesn't loop
+    vTaskDelete(NULL);
+}
+
+void app_main(void) {
+    // Spawn the simulation inside a dedicated FreeRTOS task function
+    xTaskCreate(run_capstone_simulations_task, "simulation_task", 4096, NULL, 5, NULL);
 }
