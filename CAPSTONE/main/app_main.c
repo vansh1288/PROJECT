@@ -11,6 +11,12 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "api.h" 
+
+#define MLKEM_PUBLICKEYBYTES 800
+#define MLKEM_SECRETKEYBYTES 1632
+#define MLKEM_CIPHERTEXTBYTES 768
+#define MLKEM_BYTES 32
 
 static const char *TAG = "CAPSTONE_SECAgg";
 
@@ -211,20 +217,20 @@ static void run_mlkem_handshake_simulation(void) {
 
     int64_t start_time = esp_timer_get_time();
 
-    mlkem_keypair_t kp;
-    crypto_mlkem_keygen(&kp);
+    uint8_t pk[MLKEM_PUBLICKEYBYTES];
+    uint8_t sk[MLKEM_SECRETKEYBYTES];
+    uint8_t ct[MLKEM_CIPHERTEXTBYTES];
+    uint8_t client_shared_secret[MLKEM_BYTES];
+    uint8_t server_shared_secret[MLKEM_BYTES];
 
-    uint8_t ciphertext[MLKEM_CIPHERTEXT_BYTES];
-    uint8_t client_shared_secret[MLKEM_SHARED_SECRET_BYTES];
-    uint8_t server_shared_secret[MLKEM_SHARED_SECRET_BYTES];
-
-    crypto_mlkem_encaps(kp.pk, ciphertext, server_shared_secret);
-    crypto_mlkem_decaps(kp.sk, ciphertext, client_shared_secret);
+    PQCLEAN_MLKEM512_CLEAN_crypto_kem_keypair(pk, sk);
+    PQCLEAN_MLKEM512_CLEAN_crypto_kem_enc(ct, server_shared_secret, pk);
+    PQCLEAN_MLKEM512_CLEAN_crypto_kem_dec(client_shared_secret, ct, sk);
 
     int64_t end_time = esp_timer_get_time();
     int64_t duration_us = end_time - start_time;
 
-    int match = crypto_constant_time_compare(client_shared_secret, server_shared_secret, MLKEM_SHARED_SECRET_BYTES);
+    int match = crypto_constant_time_compare(client_shared_secret, server_shared_secret, MLKEM_BYTES);
 
     ESP_LOGI(TAG, "ML-KEM Handshake Time: %lld us", duration_us);
     ESP_LOGI(TAG, "ML-KEM Shared Secrets Match: %s", (match == 0) ? "YES" : "NO");
@@ -262,7 +268,6 @@ static void print_final_comparison(void) {
     ESP_LOGI(TAG, "============================================");
 }
 
-// Dedicated wrapper function executing all simulation steps cleanly
 void run_capstone_simulations_task(void *pvParameters) {
     ESP_LOGI(TAG, "CAPSTONE SecAgg Forward Privacy & PQC Demo Starting...");
     ESP_LOGI(TAG, "Target: Seeed Studio XIAO ESP32-C3");
@@ -281,11 +286,9 @@ void run_capstone_simulations_task(void *pvParameters) {
     
     ESP_LOGI(TAG, "Demo complete. Free heap: %zu bytes", esp_get_free_heap_size());
     
-    // Delete task when finished so it doesn't loop
     vTaskDelete(NULL);
 }
 
 void app_main(void) {
-    // Spawn the simulation inside a dedicated FreeRTOS task function
-    xTaskCreate(run_capstone_simulations_task, "simulation_task", 4096, NULL, 5, NULL);
+    xTaskCreate(run_capstone_simulations_task, "simulation_task", 16384, NULL, 5, NULL);
 }

@@ -5,6 +5,14 @@
 #include "mbedtls/constant_time.h"
 #include "esp_random.h"
 #include <string.h>
+#include <stddef.h>
+#include <stdint.h>
+#include "api.h"
+
+int randombytes(uint8_t *buf, size_t n) {
+    esp_fill_random(buf, n);
+    return 0;
+}
 
 crypto_err_t crypto_sha256_hw(const uint8_t *input, size_t input_len, uint8_t *output) {
     if (!input || !output) {
@@ -87,32 +95,22 @@ crypto_err_t crypto_mlkem_keygen(mlkem_keypair_t *kp) {
     if (!kp) {
         return CRYPTO_ERR_NULL_PTR;
     }
-    esp_fill_random(kp->pk, MLKEM_PUBLIC_KEY_BYTES);
-    esp_fill_random(kp->sk, MLKEM_SECRET_KEY_BYTES);
-    return CRYPTO_OK;
+    int ret = PQCLEAN_MLKEM512_CLEAN_crypto_kem_keypair(kp->pk, kp->sk);
+    return (ret == 0) ? CRYPTO_OK : CRYPTO_ERR_HW_FAIL;
 }
 
 crypto_err_t crypto_mlkem_encaps(const uint8_t *pk, uint8_t *ciphertext, uint8_t *shared_secret) {
     if (!pk || !ciphertext || !shared_secret) {
         return CRYPTO_ERR_NULL_PTR;
     }
-    esp_fill_random(ciphertext, MLKEM_CIPHERTEXT_BYTES);
-    uint8_t buf[MLKEM_PUBLIC_KEY_BYTES + MLKEM_CIPHERTEXT_BYTES];
-    memcpy(buf, pk, MLKEM_PUBLIC_KEY_BYTES);
-    memcpy(buf + MLKEM_PUBLIC_KEY_BYTES, ciphertext, MLKEM_CIPHERTEXT_BYTES);
-    crypto_sha256_hw(buf, sizeof(buf), shared_secret);
-    return CRYPTO_OK;
+    int ret = PQCLEAN_MLKEM512_CLEAN_crypto_kem_enc(ciphertext, shared_secret, pk);
+    return (ret == 0) ? CRYPTO_OK : CRYPTO_ERR_HW_FAIL;
 }
 
 crypto_err_t crypto_mlkem_decaps(const uint8_t *sk, const uint8_t *ciphertext, uint8_t *shared_secret) {
     if (!sk || !ciphertext || !shared_secret) {
         return CRYPTO_ERR_NULL_PTR;
     }
-    uint8_t dummy_pk[MLKEM_PUBLIC_KEY_BYTES];
-    memset(dummy_pk, 0xAA, sizeof(dummy_pk));
-    uint8_t buf[MLKEM_PUBLIC_KEY_BYTES + MLKEM_CIPHERTEXT_BYTES];
-    memcpy(buf, dummy_pk, MLKEM_PUBLIC_KEY_BYTES);
-    memcpy(buf + MLKEM_PUBLIC_KEY_BYTES, ciphertext, MLKEM_CIPHERTEXT_BYTES);
-    crypto_sha256_hw(buf, sizeof(buf), shared_secret);
-    return CRYPTO_OK;
+    int ret = PQCLEAN_MLKEM512_CLEAN_crypto_kem_dec(shared_secret, ciphertext, sk);
+    return (ret == 0) ? CRYPTO_OK : CRYPTO_ERR_HW_FAIL;
 }

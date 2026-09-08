@@ -1,6 +1,6 @@
 {
     "algorithm": "ML-KEM-512",
-    "execution_time_us": 29.4,
+    "execution_time_us": 23.1,
     "secrets_match": true,
     "status": "SECURE"
 }

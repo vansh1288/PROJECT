@@ -5,9 +5,9 @@ NOTE: C:/esp/v6.1/esp-idf/components/fatfs/Kconfig:245: FATFS_PRINT_FLOAT: 'defa
 NOTE: C:/esp/v6.1/esp-idf/components/bt/sdkconfig.rename.esp32c3:4: duplicate rename mapping for CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_EN: previous target CONFIG_BT_LE_COEX_PHY_CODED_TX_RX_TLIM_EN, new target CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_EN - last mapping is used
 NOTE: C:/esp/v6.1/esp-idf/components/bt/sdkconfig.rename.esp32c3:5: duplicate rename mapping for CONFIG_BT_NIMBLE_COEX_PHY_CODED_TX_RX_TLIM_DIS: previous target CONFIG_BT_LE_COEX_PHY_CODED_TX_RX_TLIM_DIS, new target CONFIG_BT_CTRL_COEX_PHY_CODED_TX_RX_TLIM_DIS - last mapping is used
 Loading defaults file C:/PROJECT/CAPSTONE/sdkconfig.defaults...
-WARNING: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9:14: '4096' is not a valid value for the bool symbol MBEDTLS_SSL_MAX_FRAGMENT_LENGTH. Assignment ignored.
-WARNING: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9:37: '1' is not a valid value for the bool symbol FATFS_PER_FILE_CACHE. Assignment ignored.
-NOTE: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9:69: CONFIG_CXX_EXCEPTIONS was replaced with CONFIG_COMPILER_CXX_EXCEPTIONS
+WARNING: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u:14: '4096' is not a valid value for the bool symbol MBEDTLS_SSL_MAX_FRAGMENT_LENGTH. Assignment ignored.
+WARNING: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u:37: '1' is not a valid value for the bool symbol FATFS_PER_FILE_CACHE. Assignment ignored.
+NOTE: C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u:69: CONFIG_CXX_EXCEPTIONS was replaced with CONFIG_COMPILER_CXX_EXCEPTIONS
 NOTE: unknown kconfig symbol 'FREERTOS_IDLE_TASK_STACK_SIZE' assigned to '1024' in C:/PROJECT/CAPSTONE/sdkconfig.defaults
 NOTE: unknown kconfig symbol 'FREERTOS_TIMER_TASK_STACK_SIZE' assigned to '2048' in C:/PROJECT/CAPSTONE/sdkconfig.defaults
 NOTE: unknown kconfig symbol 'MBEDTLS_DYNAMIC_FREE_PEER_CERT' assigned to 'y' in C:/PROJECT/CAPSTONE/sdkconfig.defaults
@@ -20,14 +20,14 @@ NOTE: unknown kconfig symbol 'CXX_RTTI' assigned to 'n' in C:/PROJECT/CAPSTONE/s
 NOTE: Kconfig parser version: 1
 NOTE: Kconfig defaults policy: use sdkconfig
 NOTE: Status: Finished with notifications
-NOTE: C:/esp/v6.1/esp-idf/components/app_trace/Kconfig.apptrace:119: APPTRACE_ONPANIC_HOST_FLUSH_TMO has user-set value 1000 from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:137: MBEDTLS_HAVE_TIME_DATE has user-set value n from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:262: MBEDTLS_DYNAMIC_BUFFER has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:279: MBEDTLS_DYNAMIC_FREE_CONFIG_DATA has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:858: MBEDTLS_SSL_DTLS_CONNECTION_ID has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:1262: MBEDTLS_SHA256_SMALLER has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/vfs/Kconfig:22: VFS_SUPPORT_DIR has user-set value n from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible (disabled dependency)
-NOTE: C:/esp/v6.1/esp-idf/components/esp_wifi/Kconfig:227: ESP_WIFI_TASK_CORE_ID has user-set value ESP_WIFI_TASK_PINNED_TO_CORE_0 from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpwi0mf2e9 but is not visible
+NOTE: C:/esp/v6.1/esp-idf/components/app_trace/Kconfig.apptrace:119: APPTRACE_ONPANIC_HOST_FLUSH_TMO has user-set value 1000 from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:137: MBEDTLS_HAVE_TIME_DATE has user-set value n from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:262: MBEDTLS_DYNAMIC_BUFFER has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:279: MBEDTLS_DYNAMIC_FREE_CONFIG_DATA has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:858: MBEDTLS_SSL_DTLS_CONNECTION_ID has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/mbedtls/Kconfig:1262: MBEDTLS_SHA256_SMALLER has user-set value y from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/vfs/Kconfig:22: VFS_SUPPORT_DIR has user-set value n from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible (disabled dependency)
+NOTE: C:/esp/v6.1/esp-idf/components/esp_wifi/Kconfig:227: ESP_WIFI_TASK_CORE_ID has user-set value ESP_WIFI_TASK_PINNED_TO_CORE_0 from C:\Users\HP\AppData\Local\Temp\kconfgen_tmpq11rvb9u but is not visible
 HINT: Disabled symbols/choices are not written into sdkconfig file. Setting their user value has no effect.
 NOTE: user value 30000 on the int symbol ESP_INT_WDT_TIMEOUT_MS (defined at C:/esp/v6.1/esp-idf/components/esp_system/Kconfig:281) ignored due to being outside the active range ([10, 10000]) -- falling back on defaults
 CMake Warning at C:/esp/v6.1/esp-idf/tools/cmake/component_validation.cmake:106 (message):

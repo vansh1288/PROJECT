@@ -1,7 +1,7 @@
 {
     "version":            "1.3",
     "project_name":       "capstone_secagg",
-    "project_version":    "7f5ece1-dirty",
+    "project_version":    "89e107d-dirty",
     "project_path":       "C:/PROJECT/CAPSTONE",
     "idf_path":           "C:/esp/v6.1/esp-idf",
     "build_dir":          "C:/PROJECT/CAPSTONE/build",
@@ -1885,7 +1885,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__cjson" ],
             "file": "C:/PROJECT/CAPSTONE/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/PROJECT/CAPSTONE/main/app_main.c", "C:/PROJECT/CAPSTONE/main/crypto_manager.c", "C:/PROJECT/CAPSTONE/main/client_node.c", "C:/PROJECT/CAPSTONE/main/network_shaper.c" ],
+            "sources": [ "C:/PROJECT/CAPSTONE/main/app_main.c", "C:/PROJECT/CAPSTONE/main/crypto_manager.c", "C:/PROJECT/CAPSTONE/main/client_node.c", "C:/PROJECT/CAPSTONE/main/network_shaper.c", "C:/PROJECT/CAPSTONE/main/kem.c", "C:/PROJECT/CAPSTONE/main/indcpa.c", "C:/PROJECT/CAPSTONE/main/poly.c", "C:/PROJECT/CAPSTONE/main/polyvec.c", "C:/PROJECT/CAPSTONE/main/ntt.c", "C:/PROJECT/CAPSTONE/main/reduce.c", "C:/PROJECT/CAPSTONE/main/cbd.c", "C:/PROJECT/CAPSTONE/main/verify.c", "C:/PROJECT/CAPSTONE/main/symmetric-shake.c", "C:/PROJECT/CAPSTONE/main/fips202.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
